@@ -38,11 +38,11 @@ class OrganizationEdit extends React.Component {
     this.state = {
       loading: false,
 
-      avatar: props.organization.avatar,
-      avatarImage: props.organization.avatar,
-      description: props.organization.description,
+      avatar: props.organization.avatar || '',
+      avatarImage: props.organization.avatar || '',
+      description: props.organization.description || '',
       name: props.organization.name,
-      url: props.organization.url
+      url: props.organization.url || ''
     };
     this.changeAvatarImage = debounce(this.changeAvatarImage, 500);
   }
@@ -82,8 +82,6 @@ class OrganizationEdit extends React.Component {
   }
 
   render () {
-    const { organization } = this.props;
-
     return (
         <div className="page page-limited">
           <header className="page-header">
@@ -122,7 +120,7 @@ class OrganizationEdit extends React.Component {
               <div className="modal-field-description">
                 {translate('organization.avatar.description')}
               </div>
-              {!!organization.avatar && (
+              {!!this.state.avatarImage && (
                   <div className="spacer-top spacer-bottom">
                     <div className="little-spacer-bottom">
                       {translate('organization.avatar.preview')}

@@ -39,7 +39,7 @@ export const fetchOrganization = (key: string): void => (dispatch: Function): Pr
 export const updateOrganization = (key: string, changes: {}): void => (dispatch: Function): Promise<*> => {
   const onFulfilled = () => {
     dispatch(actions.updateOrganization(key, changes));
-    dispatch(addGlobalSuccessMessage(translate('organizations.updated')));
+    dispatch(addGlobalSuccessMessage(translate('organization.updated')));
   };
 
   return api.updateOrganization(key, changes).then(onFulfilled, onFail(dispatch));

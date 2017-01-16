@@ -31,13 +31,15 @@ export default class OrganizationNavigation extends React.Component {
   render () {
     const { organization } = this.props;
 
+    const adminActive = window.location.pathname.endsWith(`organization/${organization.key}/edit`);
+
     return (
         <nav className="navbar navbar-context page-container" id="context-navigation">
           <div className="navbar-context-inner">
             <div className="container">
               <ul className="nav navbar-nav nav-crumbs">
                 <li>
-                  <Link to={`/organizations/${organization.key}`}>
+                  <Link to={`/organizations/${organization.key}`} className={adminActive ? 'active': ''}>
                     {organization.name}
                   </Link>
                 </li>

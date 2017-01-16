@@ -22,8 +22,11 @@ import { combineReducers } from 'redux';
 import keyBy from 'lodash/keyBy';
 
 export type Organization = {
+  avatar: null | string,
+  description: null | string,
   key: string,
-  name: string
+  name: string,
+  url: null | string
 };
 
 type ReceiveOrganizationsAction = {

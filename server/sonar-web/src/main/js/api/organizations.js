@@ -27,3 +27,12 @@ export const getOrganizations = (organizations?: Array<string>) => {
   }
   return getJSON('/api/organizations/search', data);
 };
+
+type GetOrganizationType = null | {
+  key: string,
+  name: string
+};
+
+export const getOrganization = (key: string): GetOrganizationType => {
+  return getOrganizations([key]).then(r => r.organizations.find(o => o.key === key));
+};

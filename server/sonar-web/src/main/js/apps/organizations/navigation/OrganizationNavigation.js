@@ -19,47 +19,39 @@
  */
 // @flow
 import React from 'react';
-import { connect } from 'react-redux';
-import OrganizationNavigation from '../navigation/OrganizationNavigation';
-import { fetchOrganization } from '../actions';
-import { getOrganizationByKey } from '../../../store/rootReducer';
+import { Link, IndexLink } from 'react-router';
 import type { Organization } from '../../../store/organizations/duck';
 
-type OwnProps = {
-  params: { organizationKey: string }
-};
-
-class OrganizationPage extends React.Component {
+export default class OrganizationNavigation extends React.Component {
   props: {
-    organization: null | Organization,
-    params: { organizationKey: string },
-    fetchOrganization: (string) => void
-  }
-
-  componentDidMount () {
-    this.props.fetchOrganization(this.props.params.organizationKey);
-  }
+    organization: Organization
+  };
 
   render () {
     const { organization } = this.props;
 
-    if (!organization) {
-      return null;
-    }
-
     return (
-        <div>
-          <OrganizationNavigation organization={organization}/>
-          {organization.name}
-        </div>
+        <nav className="navbar navbar-context page-container" id="context-navigation">
+          <div className="navbar-context-inner">
+            <div className="container">
+              <ul className="nav navbar-nav nav-crumbs">
+                <li>
+                  <Link to={`/organizations/${organization.key}`}>
+                    {organization.name}
+                  </Link>
+                </li>
+              </ul>
+
+              <ul className="nav navbar-nav nav-tabs">
+                <li>
+                  <IndexLink to={`/organizations/${organization.key}`} activeClassName="active">
+                    <i className="icon-home"/>
+                  </IndexLink>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
     );
   }
 }
-
-const mapStateToProps = (state, ownProps: OwnProps) => ({
-  organization: getOrganizationByKey(state, ownProps.params.organizationKey)
-});
-
-const mapDispatchToProps = { fetchOrganization };
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrganizationPage);

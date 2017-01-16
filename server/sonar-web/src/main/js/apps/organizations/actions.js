@@ -18,6 +18,19 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 // @flow
-export const fetchOrganization = (key: string) => (dispatch: Function) => {
+import { getOrganization } from '../../api/organizations';
+import { onFail } from '../../store/rootActions';
+import { receiveOrganizations } from '../../store/organizations/duck';
 
+export const fetchOrganization = (key: string): void => (dispatch: Function): void => {
+  /* eslint-disable no-console */
+  const onFulfilled = (organization: null | {}) => {
+    if (organization) {
+      dispatch(receiveOrganizations([organization]));
+    } else {
+      onFail(dispatch)();
+    }
+  };
+
+  getOrganization(key).then(onFulfilled, onFail(dispatch));
 };

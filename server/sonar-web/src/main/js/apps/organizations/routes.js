@@ -20,7 +20,10 @@
 import React from 'react';
 import { Route } from 'react-router';
 import OrganizationPage from './components/OrganizationPage';
+import OrganizationEdit from './components/OrganizationEdit';
 
 export default (
-    <Route path=":organizationKey" component={OrganizationPage}/>
+    <Route path=":organizationKey" component={OrganizationPage}>
+      <Route path="edit" component={OrganizationEdit}/>
+    </Route>
 );

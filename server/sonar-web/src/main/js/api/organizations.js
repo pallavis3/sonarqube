@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 // @flow
-import { getJSON } from '../helpers/request';
+import { getJSON, post } from '../helpers/request';
 
 export const getOrganizations = (organizations?: Array<string>) => {
   const data = {};
@@ -36,3 +36,7 @@ type GetOrganizationType = null | {
 export const getOrganization = (key: string): GetOrganizationType => {
   return getOrganizations([key]).then(r => r.organizations.find(o => o.key === key));
 };
+
+export const updateOrganization = (key: string, changes: {}) => (
+    post('/api/organizations/update', { key, ...changes })
+);

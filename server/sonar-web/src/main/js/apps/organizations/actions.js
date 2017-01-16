@@ -18,19 +18,29 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 // @flow
-import { getOrganization } from '../../api/organizations';
+import * as api from '../../api/organizations';
 import { onFail } from '../../store/rootActions';
-import { receiveOrganizations } from '../../store/organizations/duck';
+import * as actions from '../../store/organizations/duck';
+import { addGlobalSuccessMessage } from '../../store/globalMessages/duck';
+import { translate } from '../../helpers/l10n';
 
-export const fetchOrganization = (key: string): void => (dispatch: Function): void => {
-  /* eslint-disable no-console */
+export const fetchOrganization = (key: string): void => (dispatch: Function): Promise<*> => {
   const onFulfilled = (organization: null | {}) => {
     if (organization) {
-      dispatch(receiveOrganizations([organization]));
+      dispatch(actions.receiveOrganizations([organization]));
     } else {
       onFail(dispatch)();
     }
   };
 
-  getOrganization(key).then(onFulfilled, onFail(dispatch));
+  return api.getOrganization(key).then(onFulfilled, onFail(dispatch));
+};
+
+export const updateOrganization = (key: string, changes: {}): void => (dispatch: Function): Promise<*> => {
+  const onFulfilled = () => {
+    dispatch(actions.updateOrganization(key, changes));
+    dispatch(addGlobalSuccessMessage(translate('organizations.updated')));
+  };
+
+  return api.updateOrganization(key, changes).then(onFulfilled, onFail(dispatch));
 };

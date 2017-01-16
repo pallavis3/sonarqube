@@ -50,7 +50,7 @@ class OrganizationPage extends React.Component {
     return (
         <div>
           <OrganizationNavigation organization={organization}/>
-          {organization.name}
+          {this.props.children}
         </div>
     );
   }

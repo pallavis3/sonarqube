@@ -34,7 +34,12 @@ type ReceiveOrganizationsAction = {
   organizations: Array<Organization>
 };
 
-type Action = ReceiveOrganizationsAction;
+type UpdateOrganizationAction = {
+  type: 'UPDATE_ORGANIZATION',
+  organization: Organization
+};
+
+type Action = ReceiveOrganizationsAction | UpdateOrganizationAction;
 
 type ByKeyState = {
   [key: string]: Organization
@@ -49,10 +54,25 @@ export const receiveOrganizations = (organizations: Array<Organization>): Receiv
   organizations
 });
 
+export const updateOrganization = (key: string, changes: {}): UpdateOrganizationAction => ({
+  type: 'UPDATE_ORGANIZATION',
+  key,
+  changes
+});
+
 const byKey = (state: ByKeyState = {}, action: Action) => {
   switch (action.type) {
     case 'RECEIVE_ORGANIZATIONS':
       return { ...state, ...keyBy(action.organizations, 'key') };
+    case 'UPDATE_ORGANIZATION':
+      return {
+        ...state,
+        [action.key]: {
+          ...state[action.key],
+          key: action.key,
+          ...action.changes
+        }
+      };
     default:
       return state;
   }

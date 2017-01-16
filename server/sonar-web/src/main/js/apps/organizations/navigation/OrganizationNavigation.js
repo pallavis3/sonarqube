@@ -21,6 +21,7 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
 import type { Organization } from '../../../store/organizations/duck';
+import { translate } from '../../../helpers/l10n';
 
 export default class OrganizationNavigation extends React.Component {
   props: {
@@ -47,6 +48,18 @@ export default class OrganizationNavigation extends React.Component {
                   <IndexLink to={`/organizations/${organization.key}`} activeClassName="active">
                     <i className="icon-home"/>
                   </IndexLink>
+                </li>
+                <li>
+                  <a className="dropdown-toggle navbar-admin-link" data-toggle="dropdown" href="#">
+                    {translate('layout.settings')}&nbsp;<i className="icon-dropdown"/>
+                  </a>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link to={`/organizations/${organization.key}/edit`} activeClassName="active">
+                        {translate('edit')}
+                      </Link>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </div>

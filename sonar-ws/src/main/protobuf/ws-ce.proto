@@ -62,26 +62,26 @@ message TaskTypesWsResponse {
 }
 
 message Task {
-  optional string organization = 1;
-  optional string id = 2;
-  optional string type = 3;
-  optional string componentId = 4;
-  optional string componentKey = 5;
-  optional string componentName = 6;
-  optional string componentQualifier = 7;
-  optional string analysisId = 8;
-  optional TaskStatus status = 9;
-  optional string submittedAt = 10;
-  optional string submitterLogin = 11;
-  optional string startedAt = 12;
-  optional string executedAt = 13;
-  optional bool isLastExecuted = 14;
-  optional int64 executionTimeMs = 15;
-  optional bool logs = 16;
-  optional string errorMessage = 17;
-  optional string errorStacktrace = 18;
-  optional string scannerContext = 19;
-  optional bool hasScannerContext = 20;
+  optional string organization = 20;
+  optional string id = 1;
+  optional string type = 2;
+  optional string componentId = 3;
+  optional string componentKey = 4;
+  optional string componentName = 5;
+  optional string componentQualifier = 6;
+  optional string analysisId = 7;
+  optional TaskStatus status = 8;
+  optional string submittedAt = 9;
+  optional string submitterLogin = 10;
+  optional string startedAt = 11;
+  optional string executedAt = 12;
+  optional bool isLastExecuted = 13;
+  optional int64 executionTimeMs = 14;
+  optional bool logs = 15;
+  optional string errorMessage = 16;
+  optional string errorStacktrace = 17;
+  optional string scannerContext = 18;
+  optional bool hasScannerContext = 19;
 }
 
 enum TaskStatus {
